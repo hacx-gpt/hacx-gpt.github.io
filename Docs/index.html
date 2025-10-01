@@ -1,0 +1,145 @@
+<!--
+  ================================================================================
+  This code is part of the HacxGPT project.  Repo: hacx-gpt/hacx-gpt.github.io
+  Copyright (c) 2025-26 HacxGPT. All Rights Reserved.
+
+  This project is open-source. Please see the 'LICENSE' file in the root
+  directory of this repository for the full license terms and conditions
+  before copying, modifying, or distributing this code.
+  ================================================================================
+-->
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>HacxGPT API Docs</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="./../static/1976786285762472456i2534673254625555554626346257.css"/>
+  <link rel="stylesheet" href="./../static/thm.bhbfvdhbhigtdftyf7r6g7634brydugfvguygerfvhjvg.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"/>
+  <link rel="stylesheet" href="./../static/main.css"/>
+</head>
+<body>
+  <header class="page-header">
+    <nav class="main-nav">
+      <a href="/"><i class="fa-solid fa-house nav-icon"></i><span class="pixel pixel-sm">Home</span></a>
+      <a href="/Models/"><i class="fa-solid fa-bolt nav-icon"></i><span class="pixel pixel-sm">Models</span></a>
+      <a href="/Docs/" class="active"><i class="fa-solid fa-book nav-icon"></i><span class="pixel pixel-sm">Docs</span></a>
+      <a href="/Pricing/"><i class="fa-solid fa-tags nav-icon"></i><span class="pixel pixel-sm">Pricing</span></a>
+      <a href="/OpenSource/"><i class="fa-brands fa-github nav-icon"></i><span class="pixel pixel-sm">Open&nbsp;Source</span></a>
+      <a href="/Community/"><i class="fa-brands fa-telegram nav-icon"></i><span class="pixel pixel-sm">Community</span></a>
+      <a href="/About/"><i class="fa-solid fa-circle-info nav-icon"></i><span class="pixel pixel-sm">About</span></a>
+      <a href="/Access/" class="brand-badge"><i class="fa-solid fa-key nav-icon"></i><span class="pixel pixel-sm">Get API</span></a>
+    </nav>
+  </header>
+  <div class="nav-spacer"></div>
+
+  <main class="section">
+    <h1 class="pixel">HacxGPT API</h1>
+    <h3 class="pixel">(Under Devlopment)</h3>
+    <p>HacxGPT exposes an OpenAI-compatible API. Use your favorite OpenAI clients by pointing to our base URL and passing your HacxGPT API key. Keys and endpoint URL are provided on request via our Telegram community.</p>
+
+    <div class="card">
+      <h3>Base URL</h3>
+      <p><strong>Base:</strong> <code>https://api.hacxgpt.example/v1</code> <span class="brand-badge pixel pixel-sm">request access</span></p>
+      <p><strong>Auth:</strong> <code>Authorization: Bearer YOUR_API_KEY</code></p>
+    </div>
+
+    <section class="content-section">
+      <h2>Chat Completions</h2>
+      <p>Compatible with <code>/v1/chat/completions</code> (OpenAI style). Models: <code>hacxgpt-lightning</code>, <code>hacxgpt-vision</code>, <code>hacxgpt-code</code>.</p>
+
+      <div class="code code-block">
+        <div class="code-block-header"><div class="code-block-filename"><span>curl</span></div></div>
+        <pre><code class="hljs bash">curl https://api.hacxgpt.example/v1/chat/completions \
+  -H "Authorization: Bearer &lt;YOUR_API_KEY&gt;" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "hacxgpt-lightning",
+    "messages": [
+      {"role":"system","content":"You are HacxGPT."},
+      {"role":"user","content":"Explain mixture-of-experts in simple terms."}
+    ],
+    "temperature": 0.7,
+    "stream": false
+  }'</code></pre>
+      </div>
+
+      <div class="code code-block">
+        <div class="code-block-header"><div class="code-block-filename"><span>Node.js (fetch)</span></div></div>
+        <pre><code class="hljs javascript">const res = await fetch("https://api.hacxgpt.example/v1/chat/completions", {
+  method: "POST",
+  headers: {
+    "Authorization": "Bearer " + process.env.HACXGPT_API_KEY,
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    model: "hacxgpt-lightning",
+    messages: [
+      { role: "system", content: "You are HacxGPT." },
+      { role: "user", content: "Write a haiku about speed." }
+    ]
+  })
+});
+const json = await res.json();
+console.log(json.choices?.[0]?.message?.content);</code></pre>
+      </div>
+
+      <div class="code code-block">
+        <div class="code-block-header"><div class="code-block-filename"><span>Python (requests)</span></div></div>
+        <pre><code class="hljs python">import os, requests, json
+
+API_KEY = os.environ.get("HACXGPT_API_KEY")
+url = "https://api.hacxgpt.example/v1/chat/completions"
+payload = {
+  "model": "hacxgpt-lightning",
+  "messages": [
+    {"role": "system", "content": "You are HacxGPT."},
+    {"role": "user", "content": "Summarize mixture-of-experts in 3 bullets."}
+  ]
+}
+headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
+r = requests.post(url, headers=headers, data=json.dumps(payload))
+print(r.json())</code></pre>
+      </div>
+
+    </section>
+
+    
+
+    <section class="content-section">
+      <h2>Get an API Key</h2>
+      <p>API URL and keys are issued on request. Join our Telegram community and message the admins to request access.</p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="https://t.me/hacxgpt" target="_blank" rel="noopener"><i class="fa-brands fa-telegram"></i> Request on Telegram</a>
+        <a class="btn btn-outline" href="/Access/"><i class="fa-solid fa-key"></i> Access Guide</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page-footer">
+    <div class="footer-top">
+        <div class="footer-logo">
+            <h3>HacxGPT</h3>
+        </div>
+        <div class="social-icons">
+            <a href="https://github.com/hacx-gpt" aria-label="GitHub" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-github"></i>
+            </a>
+            
+            <a href="https://t.me/hacxgpt" aria-label="Telegram" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-telegram"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="footer-bottom"><p>&copy; 2025 HacxGPT. All Rights Reserved</p></div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script>try{hljs.highlightAll()}catch(e){}</script>
+  <script src="./../static/site.js"></script>
+</body>
+</html>

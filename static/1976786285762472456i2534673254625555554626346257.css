@@ -1,0 +1,346 @@
+/*
+  ================================================================================
+  This code is part of the HacxGPT project.  Repo: hacx-gpt/hacx-gpt.github.io
+  Copyright (c) 2025-26 HacxGPT. All Rights Reserved.
+
+  This project is open-source. Please see the 'LICENSE' file in the root
+  directory of this repository for the full license terms and conditions
+  before copying, modifying, or distributing this code.
+  ================================================================================
+*/
+
+/* 1. CSS VARIABLES & MODERN SETUP */
+:root {
+    --bg-color: #010409;
+    --card-bg: #0d1117; /* Slightly lighter than pure black for depth */
+    --text-color: #E2E8F0;
+    --subtle-text-color: #94A3B8;
+    --border-color: rgba(255, 255, 255, 0.1);
+    --nav-bg: rgba(13, 17, 23, 0.7); /* Darker, more professional nav */
+    
+    --accent-cyan: #22D3EE;
+    --accent-purple: #A78BFA;
+    --accent-cyan-rgb: 34, 211, 238;
+
+    /* Animation Timing */
+    --transition-speed-fast: 0.2s;
+    --transition-speed-normal: 0.4s;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased; /* Crisper text rendering */
+    text-rendering: optimizeLegibility;
+}
+
+/* 2. SUBTLE BACKGROUND EFFECTS */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+    /* REFINED: Much softer, less distracting background glow */
+    background-image: radial-gradient(
+        circle 800px at var(--mouse-x) calc(var(--mouse-y) - var(--scroll-y)),
+        rgba(var(--accent-cyan-rgb), 0.06),
+        transparent 60%
+    );
+}
+
+/* remove the underline only from the social-icon links */
+.footer-top .social-icons a {
+  text-decoration: none;
+}
+
+
+/* 3. REFINED HEADER */
+.page-header {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Centered for a cleaner look */
+    padding: 1.5rem 2rem;
+    z-index: 1000;
+    transform: translateY(-100%);
+    animation: slideDown 0.8s ease-out 0.5s forwards;
+}
+
+@keyframes slideDown { to { transform: translateY(0); } }
+
+.main-nav {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    background-color: var(--nav-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.37);
+}
+
+.main-nav a {
+    color: var(--subtle-text-color);
+    text-decoration: none;
+    display: flex; align-items: center; gap: 0.5rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+    transition: all var(--transition-speed-fast) ease;
+}
+.main-nav a:hover { 
+    color: var(--text-color); 
+    background-color: rgba(255, 255, 255, 0.07);
+}
+.main-nav a.active { 
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-color); 
+}
+.main-nav .nav-icon { font-size: 1rem; }
+
+/* 4. PROFESSIONAL HERO SECTION */
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 1rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+.hero .tags { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+.hero .tag { font-size: 0.75rem; padding: 0.375rem 0.75rem; border-radius: 9999px; font-weight: 600; }
+.hero .tag.once-ui { background-color: var(--accent-cyan); color: var(--bg-color); }
+.hero .tag.featured-work { background-color: #1E293B; color: #E2E8F0; border: 1px solid #334155; }
+
+.hero h1 { 
+    font-size: clamp(3rem, 8vw, 5rem); 
+    font-weight: 700; 
+    line-height: 1.1; 
+    margin-bottom: 1.5rem; 
+    letter-spacing: -0.04em;
+    color: var(--text-color);
+    text-wrap: balance; /* Prevents awkward single-word lines */
+}
+.hero .subtitle { 
+    font-size: 1.25rem; /* Slightly larger for better impact */
+    color: var(--subtle-text-color); 
+    line-height: 1.6; 
+    max-width: 600px; 
+    margin: 0 auto 2.5rem auto; 
+    text-wrap: pretty;
+}
+.hero .about-link { display: inline-flex; align-items: center; gap: 0.75rem; padding: 0.5rem 1rem 0.5rem 0.5rem; border-radius: 9999px; text-decoration: none; color: var(--text-color); background-color: var(--nav-bg); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid var(--nav-border); transition: all var(--transition-speed-fast) ease-in-out; }
+.hero .about-link:hover { background-color: rgba(255, 255, 255, 0.1); transform: scale(1.05); }
+.hero .about-link img { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; transition: transform var(--transition-speed-fast) ease-in-out; }
+.hero .about-link:hover img { transform: scale(1.1) rotate(10deg); }
+
+
+/* 5. PROFESSIONAL WORK SECTION & CARD REDESIGN */
+.featured-work-section {
+    padding: 6rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.featured-work-section .section-header { text-align: center; margin-bottom: 4rem; }
+.featured-work-section h2 { 
+    font-size: 2.75rem; 
+    font-weight: 700; 
+    margin-bottom: 0.5rem;
+    text-wrap: balance;
+}
+.featured-work-section .section-header p { color: var(--subtle-text-color); font-size: 1.125rem; }
+
+.work-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2.5rem; /* More breathing room */
+}
+
+/* --- PROFESSIONAL CARD DESIGN START --- */
+.work-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 1.5rem;
+    position: relative; /* Crucial for pseudo-elements */
+    overflow: hidden;
+    transition: transform var(--transition-speed-fast) ease, box-shadow var(--transition-speed-fast) ease;
+}
+
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* The animated gradient that acts as a glowing border */
+.work-card::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200%; /* Make it large enough to cover the card corners */
+    height: 200%;
+    z-index: 0;
+    opacity: 0; /* Hidden by default */
+    background: conic-gradient(
+        from 90deg,
+        transparent 50%,
+        var(--accent-cyan),
+        var(--accent-purple),
+        var(--accent-cyan),
+        transparent
+    );
+    transform-origin: center center;
+    transform: translate(-50%, -50%);
+    transition: opacity var(--transition-speed-normal) ease;
+}
+
+.work-card:hover {
+    transform: translateY(-8px); /* Subtle lift effect */
+    box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+}
+
+.work-card:hover::before {
+    opacity: 1;
+    animation: spin 4s linear infinite;
+}
+
+/* A solid background layer to hide the spinning gradient behind the content */
+.work-card::after {
+    content: '';
+    position: absolute;
+    inset: 1px; /* The thickness of the "border" */
+    background-color: var(--card-bg);
+    border-radius: 15px; /* Slightly smaller than the parent */
+    z-index: 1;
+}
+
+/* The actual content of the card, must be above the ::after pseudo-element */
+.card-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.card-header { display: flex; align-items: center; gap: 0.75rem; font-weight: 500; }
+.card-image-wrapper { 
+    border-radius: 8px; 
+    overflow: hidden; 
+    aspect-ratio: 16 / 9;
+}
+.card-image-wrapper img { 
+    width: 100%; height: 100%; object-fit: cover; 
+    transition: transform var(--transition-speed-normal) ease; 
+}
+.work-card:hover .card-image-wrapper img { transform: scale(1.05); }
+.work-card h3 { font-size: 1.25rem; font-weight: 600; }
+.work-card .card-description { color: var(--subtle-text-color); line-height: 1.5; }
+/* --- PROFESSIONAL CARD DESIGN END --- */
+
+/* 6. PROFESSIONAL FOOTER */
+.page-footer {
+    padding: 5rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    border-top: 1px solid var(--border-color);
+}
+.footer-inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 3rem;
+    margin-bottom: 4rem;
+}
+.footer-branding { flex-basis: 40%; }
+.footer-logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+.footer-tagline {
+    color: var(--subtle-text-color);
+}
+.footer-nav {
+    display: flex;
+    gap: 4rem;
+}
+.footer-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.footer-links h6 {
+    font-size: 0.875rem;
+    color: var(--subtle-text-color);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+.footer-links a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color var(--transition-speed-fast) ease;
+}
+.footer-links a:hover {
+    color: var(--accent-cyan);
+}
+.footer-bottom {
+    text-align: center;
+    color: var(--subtle-text-color);
+    font-size: 0.875rem;
+}
+
+/* 7. SCROLL-TRIGGERED ANIMATIONS */
+.fade-in-up { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+.fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
+.work-card.is-visible:nth-child(2) { transition-delay: 0.1s; }
+.work-card.is-visible:nth-child(3) { transition-delay: 0.2s; }
+.hero .tags, .hero h1, .hero .subtitle, .hero .about-link {
+    opacity: 0;
+    animation: fadeInAndUnblur 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+@keyframes fadeInAndUnblur {
+    from { opacity: 0; filter: blur(8px); transform: translateY(15px); }
+    to { opacity: 1; filter: blur(0px); transform: translateY(0); }
+}
+.hero .tags { animation-delay: 0.8s; }
+.hero h1 { animation-delay: 1.0s; }
+.hero .subtitle { animation-delay: 1.2s; }
+.hero .about-link { animation-delay: 1.4s; }
+
+
+/* 8. RESPONSIVE ADJUSTMENTS */
+@media (max-width: 768px) {
+    .main-nav span { display: none; } /* On mobile, only show icons in nav */
+    .work-grid { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; }
+    .footer-nav { width: 100%; justify-content: space-between; }
+}
+
+@media (max-width: 480px) {
+    .main-nav a { padding: 0.5rem; } /* Make nav buttons smaller on small screens */
+    .hero h1 { font-size: 2.5rem; }
+    .hero .subtitle { font-size: 1.125rem; }
+}

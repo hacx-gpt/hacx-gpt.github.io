@@ -1,0 +1,1113 @@
+/*
+  ================================================================================
+  This code is part of the HacxGPT project.  Repo: hacx-gpt/hacx-gpt.github.io
+  Copyright (c) 2025-26 HacxGPT. All Rights Reserved.
+
+  This project is open-source. Please see the 'LICENSE' file in the root
+  directory of this repository for the full license terms and conditions
+  before copying, modifying, or distributing this code.
+  ================================================================================
+*/
+
+/* ==========================================================================
+   1. Root Variables
+   ========================================================================== */
+
+:root {
+    --bg-color: #0A0A0A;
+    --bg-secondary: #121212;
+    --bg-tertiary: #1A1A1A;
+    --border-color: #262626;
+    --text-primary: #F5F5F5;
+    --text-secondary: #A3A3A3;
+    --text-tertiary: #737373;
+    --accent-glow: rgba(168, 85, 247, 0.5);
+    --accent-brand: #4F46E5;
+    --badge-new-bg: #3730A3;
+    --badge-new-text: #E0E7FF;
+    --badge-update-bg: #3F3F46;
+    --badge-update-text: #D4D4D8;
+    --bg-code: #0D0D0D; /* A slightly different bg for the code area */
+    --accent-active: #38BDF8; /* A brighter, more vibrant blue */
+    --bg-code-block: #202127; /* Dark desaturated blue for code blocks */
+    --glow-color: rgba(168, 85, 247, 0.15); /* Faint purple glow */
+    --bg-code-line: #0f0f0f; /* A dark background with a HINT of purple for single-line commands */
+}
+
+
+/* ==========================================================================
+   2. Global Styles & Resets
+   ========================================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-primary);
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+/* remove the underline only from the social-icon links */
+.footer-top .social-icons a {
+  text-decoration: none;
+}
+
+
+
+/* ==========================================================================
+   3. Scrollbar Styles
+   ========================================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #2a2a2a;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #3a3a3a;
+}
+
+
+/* ==========================================================================
+   4. Layout
+   ========================================================================== */
+
+.container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    grid-template-rows: 60px 1fr;
+    min-height: 100vh;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        grid-template-columns: 260px 1fr 240px;
+    }
+}
+
+
+/* ==========================================================================
+   5. Header
+   ========================================================================== */
+
+.header {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 24px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    transition: background-color 0.3s ease, border-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+.header.scrolled {
+    background-color: rgba(10, 10, 10, 0.6);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.header .logo {
+    margin-right: auto;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.search-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 300px;
+}
+
+.search-bar input {
+    width: 100%;
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+}
+
+.search-bar input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-shortcut {
+    position: absolute;
+    right: 10px;
+    font-size: 12px;
+    color: var(--text-tertiary);
+    background-color: var(--bg-tertiary);
+    padding: 2px 6px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: 24px;
+}
+
+.header-actions .btn {
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-secondary {
+    color: var(--text-primary);
+    background-color: transparent;
+}
+
+.btn-secondary:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.btn-primary {
+    color: var(--bg-color);
+    background-color: var(--text-primary);
+}
+
+.btn-primary:hover {
+    background-color: #d1d1d1;
+}
+
+
+/* ==========================================================================
+   6. Left Sidebar
+   ========================================================================== */
+
+.left-sidebar {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+    border-right: 1px solid var(--border-color);
+    padding: 24px 16px;
+    overflow-y: auto;
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+}
+
+.nav-group {
+    margin-bottom: 24px;
+}
+
+.nav-group .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    text-decoration: none;
+    color: var(--text-secondary);
+    border-radius: 6px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    font-weight: 500;
+}
+
+.nav-group .nav-link:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-tertiary);
+}
+
+.nav-group .nav-link svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 1.5;
+}
+
+.nav-group-title {
+    padding: 8px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-transform: capitalize;
+    cursor: pointer;
+    border-radius: 6px;
+}
+
+.nav-group-title:hover {
+    background-color: var(--bg-tertiary);
+}
+
+.nav-group-title svg {
+    width: 14px;
+    height: 14px;
+    color: var(--text-secondary);
+    transition: transform 0.3s ease;
+}
+
+.nav-group-title.open svg {
+    transform: rotate(180deg);
+}
+
+.nav-sub-items {
+    padding-left: 12px;
+    border-left: 1px solid var(--border-color);
+    margin-left: 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+
+.nav-sub-items .nav-link {
+    font-weight: 400;
+}
+
+.nav-link.active {
+    background-color: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.nav-badge {
+    margin-left: auto;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+.badge-update {
+    background-color: var(--badge-update-bg);
+    color: var(--badge-update-text);
+}
+
+.badge-new {
+    background-color: var(--badge-new-bg);
+    color: var(--badge-new-text);
+}
+
+
+/* ==========================================================================
+   7. Main Content
+   ========================================================================== */
+
+.main-content {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+    padding: 48px;
+    overflow-y: auto;
+}
+
+.content-section {
+    max-width: 800px;
+    margin-bottom: 64px;
+    padding-top: 24px;
+}
+
+.content-section h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.content-section h3 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    margin-top: 32px;
+}
+
+.content-section p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 16px;
+}
+
+
+/* ==========================================================================
+   8. Components
+   ========================================================================== */
+
+
+/* ==========================================================================
+   8. Components -> REPLACE the old code styles with these
+   ========================================================================== */
+
+/* --- Code Line Component (with purple-tinted background) --- */
+.code-line {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--bg-code-line); /* USE THIS NEW BACKGROUND */
+    border: 1px solid var(--border-color); /* USE A SIMPLE BORDER */
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 24px;
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+    font-size: 14px;
+    overflow-x: auto;
+    transition: border-color 0.2s ease;
+}
+
+.code-line:hover {
+    border-color: #4a4a4a; /* A slightly lighter border on hover */
+}
+
+.code-line pre {
+    margin: 0;
+    padding: 0;
+    background: none !important;
+}
+
+.code-line pre code {
+    padding: 0 !important;
+}
+
+
+/* --- Code Block Component (with neutral background) --- */
+.code-block {
+    background-color: var(--bg-code-block); /* USE THE NEUTRAL BACKGROUND */
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 24px 0;
+}
+
+.code-block pre {
+    margin: 0;
+    background-color: transparent !important;
+}
+
+.code-block pre code.hljs {
+    background: transparent; /* <-- THIS IS THE KEY CHANGE */
+    display: block; /* Ensures it fills the container properly */
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.code-line pre code.hljs {
+    background: transparent; /* <-- THIS IS THE KEY CHANGE */
+    display: block; /* Ensures it fills the container properly */
+    padding: 20px;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+/* --- Shared Copy Button Style --- */
+.copy-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-tertiary);
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+.copy-btn:hover {
+    color: var(--text-primary);
+    background-color: var(--bg-tertiary);
+}
+
+.copy-btn svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* --- Steps Component --- */
+.steps-container {
+    position: relative;
+    padding-left: 24px;
+    border-left: 2px solid var(--border-color);
+}
+
+.step-item {
+    position: relative;
+    margin-bottom: 32px;
+}
+
+.step-item:last-child {
+    margin-bottom: 0;
+}
+
+.step-item::before {
+    content: attr(data-step);
+    position: absolute;
+    left: -37px;
+    top: -2px;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    border: 2px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.step-item h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.step-item p {
+    margin: 0;
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+/* --- Cards Component --- */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+}
+
+.card-link,
+.card-image {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    text-decoration: none;
+    transition: border-color 0.2s ease, transform 0.2s ease;
+    overflow: hidden;
+}
+
+.card-link:hover,
+.card-image:hover {
+    border-color: #3f3f46;
+    transform: translateY(-2px);
+}
+
+.card-link {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.card-link-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.card-link svg {
+    width: 18px;
+    height: 18px;
+    color: var(--text-secondary);
+}
+
+.card-tag {
+    font-size: 12px;
+    background-color: var(--bg-tertiary);
+    color: var(--text-secondary);
+    padding: 4px 8px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.card-image img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.card-image-content {
+    padding: 16px;
+}
+
+.card-image-content h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+}
+
+.card-image-content p {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+/* --- Callouts Component --- */
+.callout {
+    padding: 16px;
+    border-radius: 12px;
+    border: 1px solid;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+    font-size: 15px;
+}
+
+.callout svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+.callout strong {
+    font-weight: 600;
+    color: #fff;
+}
+
+.callout-idea {
+    background-color: #052e16;
+    border-color: #166534;
+    color: #a7f3d0;
+}
+
+.callout-info {
+    background-color: #1e293b;
+    border-color: #3b82f6;
+    color: #bfdbfe;
+}
+
+.callout-warning {
+    background-color: #422006;
+    border-color: #f97316;
+    color: #fed7aa;
+}
+
+.callout-danger {
+    background-color: #450a0a;
+    border-color: #dc2626;
+    color: #fecaca;
+}
+
+.callout-default {
+    background-color: #262626;
+    border-color: #525252;
+    color: #d4d4d4;
+}
+
+
+/* ==========================================================================
+   9. Right Sidebar (Table of Contents)
+   ========================================================================== */
+
+.right-sidebar {
+    display: none;
+}
+
+@media (min-width: 1024px) {
+    .right-sidebar {
+        display: block;
+        grid-column: 3 / 4;
+        grid-row: 2 / 3;
+        padding: 48px 24px;
+        position: sticky;
+        top: 60px;
+        height: calc(100vh - 60px);
+        overflow-y: auto;
+    }
+}
+
+.toc-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.toc-title svg {
+    width: 16px;
+    height: 16px;
+}
+
+.toc-list {
+    list-style: none;
+}
+
+.toc-list li a {
+    display: block;
+    padding: 8px 0 8px 16px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 13px;
+    border-left: 1px solid var(--border-color);
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.toc-list li a:hover {
+    color: var(--text-primary);
+}
+
+.toc-list li a.active {
+    color: var(--text-primary);
+    font-weight: 500;
+    border-left: 1px solid var(--text-primary);
+}
+
+
+/* ==========================================================================
+   10. Footer
+   ========================================================================== */
+
+.site-footer {
+    background-color: var(--bg-color);
+    color: var(--text-secondary);
+    padding: 64px 48px;
+    border-top: 1px solid var(--border-color);
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 48px;
+}
+
+.footer-logo svg {
+    width: 32px;
+    height: 32px;
+    color: var(--text-primary);
+}
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background-color: var(--bg-tertiary);
+    border-radius: 50%;
+    color: var(--text-secondary);
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.social-icons a:hover {
+    background-color: #27272a;
+    color: var(--text-primary);
+}
+
+.social-icons svg {
+    width: 20px;
+    height: 20px;
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+}
+
+@media (min-width: 768px) {
+    .footer-grid {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.footer-column h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.footer-column ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.footer-column a {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.footer-column a:hover {
+    color: var(--text-primary);
+}
+
+.footer-column .badge-new {
+    font-size: 10px;
+    padding: 2px 8px;
+}
+
+.footer-bottom {
+    margin-top: 48px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+}
+
+
+/* ==========================================================================
+   11. Code Blocks & Syntax Highlighting
+   ========================================================================== */
+
+.code-container {
+    margin: 24px 0;
+}
+
+.code-container pre {
+    margin: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.code-container pre code.hljs {
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.hero-content .code-container pre {
+    text-align: left;
+}
+
+
+/* --- Details/Collapsible Component --- */
+details {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 16px;
+    overflow: hidden; /* Ensures radius is respected by children */
+}
+
+details[open] {
+    border-color: #3f3f46;
+}
+
+details summary {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    list-style: none; /* Removes the default marker in Firefox */
+    outline: none;
+    transition: background-color 0.2s ease;
+}
+
+details summary:hover {
+    background-color: var(--bg-tertiary);
+}
+
+details summary::-webkit-details-marker {
+    display: none; /* Removes the default marker in Chrome/Safari */
+}
+
+details summary::before {
+    content: '›';
+    font-size: 1.5rem;
+    line-height: 1;
+    margin-right: 12px;
+    transform-origin: center;
+    transition: transform 0.2s ease;
+}
+
+details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.details-content {
+    padding: 0 16px 16px 42px; /* Aligns with summary text */
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.details-content p {
+    margin: 0 0 8px 0;
+}
+
+.details-content p:last-child {
+    margin-bottom: 0;
+}
+
+
+/* ==========================================================================
+   1. Root Variables -> UPDATE THIS SECTION
+   ========================================================================== */
+
+:root {
+    /* ... existing variables ... */
+    --bg-code: #0D0D0D; /* A slightly different bg for the code area */
+    --accent-active: #38BDF8; /* A brighter, more vibrant blue */
+}
+
+
+/* ==========================================================================
+   8. Components -> UPDATE AND ADD TO THIS SECTION
+   ========================================================================== */
+
+/* --- Tabs Component -> UPDATED STYLES --- */
+.tabs-nav {
+    display: flex;
+    gap: 24px;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 24px;
+}
+
+.tab-link {
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace; /* Monospace font */
+    font-size: 14px; /* Slightly smaller font size */
+    font-weight: 500;
+    color: var(--text-secondary);
+    background: none;
+    border: none;
+    padding: 8px 4px; /* Adjusted padding */
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+}
+
+.tab-link:hover {
+    color: var(--text-primary);
+}
+
+.tab-link.active {
+    
+    color: var(--accent-active);
+}
+
+.tab-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-active);
+}
+
+.tab-pane {
+    display: none;
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+
+
+.code-block {
+    background-color: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 24px 0;
+}
+
+.code-block-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 10px 10px 16px;
+    border-bottom: 1px solid var(--border-color);
+    font-family: 'SF Mono', 'Fira Code', 'Fira Mono', 'Roboto Mono', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+}
+
+.code-block-filename {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.code-block-filename .file-type {
+    color: var(--text-tertiary);
+}
+
+.code-block pre {
+    margin: 0;
+    background-color: var(--bg-code) !important;
+}
+
+.code-block pre code.hljs {
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.legend {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .legend-key {
+            width: 16px;
+            height: 12px;
+            flex-shrink: 0;
+            border-radius: 3px;
+            background-color: #3b82f6;
+            background-image: repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 3px,
+                rgba(255, 255, 255, 0.4) 3px,
+                rgba(255, 255, 255, 0.4) 6px
+            );
+        }
+
+        /* Charts Grid Layout */
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
+            gap: 2rem;
+        }
+        
+        @media (max-width: 640px) {
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Individual Chart Styles */
+        .chart-container {
+            border: 1px solid #333;
+            border-radius: 8px;
+            padding: 1.5rem;
+            background-color: #1e1e1e;
+            overflow-x: auto; /* Allow horizontal scrolling on small screens */
+        }
+
+        .chart-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .chart-area {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-end;
+            height: 320px;
+            width: 100%;
+            min-width: 800px; /* Ensure labels don't crowd on resize */
+            border-bottom: 1px solid #555;
+            padding-bottom: 5px;
+            gap: 0.5%;
+        }
+
+        .bar-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+            text-align: center;
+            position: relative;
+            height: 100%;
+        }
+
+        .bar-value {
+            font-size: 0.8rem;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+
+        .bar {
+            width: 90%;
+            max-width: 28px;
+            border-radius: 4px 4px 0 0;
+            transition: transform 0.2s ease-out, filter 0.2s;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .bar:hover {
+            transform: scaleY(1.03);
+            filter: brightness(1.2);
+        }
+
+        .bar-label-container {
+            width: 100%;
+            height: 130px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .bar-label-text {
+            position: absolute;
+            right: 50%;
+            top: 5px;
+            transform-origin: 100% 0;
+            transform: translateX(5px) rotate(-62deg);
+            white-space: nowrap;
+            font-size: 12px;
+            color: #ddd;
+            text-align: right;
+            padding-right: 8px;
+        }
+
+        a {
+      color: inherit;           /* same as surrounding text */
+      text-decoration: underline; 
+      text-decoration-color: #e0e0e0; /* same as text color */
+    }
+
+    a:hover {
+      text-decoration-color: #aaa; /* subtle hover effect */
+    }
